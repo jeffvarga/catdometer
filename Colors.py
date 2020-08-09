@@ -1,0 +1,5 @@
+BLACK = "black"
+RED = "red"
+YELLOW = "yellow"
+HALFYELLOW = "#808000"
+DARKGRAY = "#262626"
