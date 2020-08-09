@@ -1,37 +1,7 @@
-from src import Colors
 import tkinter as tk
 
-
-class CircularList(list):
-    """
-    A list that acts as a circular array.  Allows indexing past the end of the
-    array, returning i % len.
-    """
-    def __getitem__(self, item):
-        return super(CircularList, self).__getitem__(item % len(self))
-
-    def realIndex(self, item) -> int:
-        """
-        Evaluates the index with respect to the circular array and returns the
-        real index.
-        :param item: index to evaluate
-        :return: real index
-        """
-        return item % len(self)
-
-
-class MainApplication(tk.Frame):
-    def __init__(self, parent, *args, **kwargs):
-        tk.Frame.__init__(self, parent, *args, **kwargs)
-        self.parent = parent
-
-        self.speedometer = Speedometer(self)
-        self.speedometer.pack(side=tk.LEFT, fill=tk.Y)
-
-        self.odometer = Odometer(self)
-        self.odometer.pack(side=tk.RIGHT, fill=tk.Y)
-
-        self.configure(bg="yellow")
+from Catdometer.utils import Colors
+from Catdometer.utils import CircularList
 
 
 class Speedometer(tk.Frame):
@@ -104,21 +74,3 @@ class Speedometer(tk.Frame):
                     self.canvas.itemconfigure(self.tickArray[i], outline="#404000")
 
         self.canvas.after(500, self.AdvanceTick)
-
-
-class Odometer(tk.Frame):
-    def __init__(self, parent, *args, **kwargs):
-        tk.Frame.__init__(self, parent, *args, **kwargs)
-        self.parent = parent
-
-        self.configure(bg=Colors.RED)
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.title("Catdometer")
-    root.geometry("480x320")
-    root.resizable(width=tk.FALSE, height=tk.FALSE)
-
-    MainApplication(root).pack(side=tk.TOP, fill=tk.BOTH, expand=tk.TRUE)
-    root.mainloop()
