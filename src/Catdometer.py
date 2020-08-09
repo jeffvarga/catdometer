@@ -1,4 +1,4 @@
-import Colors
+from src import Colors
 import tkinter as tk
 
 
