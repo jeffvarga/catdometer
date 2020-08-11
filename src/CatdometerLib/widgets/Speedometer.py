@@ -1,7 +1,8 @@
 import tkinter as tk
+import tkinter.font
 
-from Catdometer.utils import Colors
-from Catdometer.utils import CircularList
+from ..utils import Colors
+from ..utils.CircularList import CircularList
 
 
 class Speedometer(tk.Frame):
@@ -12,18 +13,20 @@ class Speedometer(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
-        self.configure(width=240, height=240)
 
         self.configure(bg=Colors.BLACK)
+        self.pack(fill=tk.BOTH, expand=tk.TRUE)
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
 
-        self.canvas = tk.Canvas(self)
-        self.canvas.grid(column=0, row=0)  # sticky=(tk.N, tk.W, tk.E, tk.S))
-        self.canvas.configure(bg="black", width=480, height=320)
+        self.canvas = tk.Canvas(self, width=kwargs["width"], height=kwargs["width"])
+        self.canvas.grid(column=0, row=0, sticky=tk.NSEW)
+        self.canvas.configure(bg=parent["bg"], borderwidth=0, highlightthickness=0, relief=tk.FLAT)
 
         canvasPadding = 20
         coord = (canvasPadding,  # Left
                  canvasPadding,  # Top
-                 int(self.canvas["height"]) - canvasPadding,  # Right
+                 int(self.canvas["width"]) - canvasPadding,  # Right
                  int(self.canvas["height"]) - canvasPadding)  # Bottom
         ticks = 24
         degsPerTick = 360 / ticks
@@ -43,6 +46,14 @@ class Speedometer(tk.Frame):
                 style=tk.ARC, width=15)
 
         self.canvas.after(1, self.AdvanceTick)
+
+        helv36 = tk.font.Font(family="Helvetica", size=72, weight="bold")
+        self.liveSpeedLbl = self.canvas.create_text(160, 160, anchor=tk.CENTER, fill=Colors.WHITE, justify=tk.CENTER, font=helv36)
+        self.canvas.itemconfigure(self.liveSpeedLbl, text="44.2")
+
+        helv24 = tk.font.Font(family="Helvetica", size=20)
+        self.liveSpeedUnits = self.canvas.create_text(240, 220, anchor=tk.E, fill="#4d4d4d", justify=tk.RIGHT, font=helv24)
+        self.canvas.itemconfigure(self.liveSpeedUnits, text="ft/s")
 
     def AdvanceTick(self, Clockwise=True, Chasers=1, Replicants=5):
         # Rather than try to be clever here and add a lot of convoluted logic to
