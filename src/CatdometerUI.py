@@ -25,7 +25,10 @@ if __name__ == "__main__":
     root.title("Catdometer")
     root.geometry("480x320")
     root.resizable(width=tk.FALSE, height=tk.FALSE)
-    #root.attributes("-fullscreen", tk.TRUE)
+
+    import os
+    if os.getlogin() == "pi":
+        root.attributes("-fullscreen", tk.TRUE)
 
     MainApplication(root).pack(side=tk.TOP, fill=tk.BOTH, expand=tk.TRUE)
     root.mainloop()

@@ -15,12 +15,9 @@ class Speedometer(tk.Frame):
         self.parent = parent
 
         self.configure(bg=Colors.BLACK)
-        self.pack(fill=tk.BOTH, expand=tk.TRUE)
-        self.rowconfigure(0, weight=1)
-        self.columnconfigure(0, weight=1)
 
         self.canvas = tk.Canvas(self, width=kwargs["width"], height=kwargs["width"])
-        self.canvas.grid(column=0, row=0, sticky=tk.NSEW)
+        self.canvas.pack(fill=tk.BOTH)
         self.canvas.configure(bg=parent["bg"], borderwidth=0, highlightthickness=0, relief=tk.FLAT)
 
         canvasPadding = 20
