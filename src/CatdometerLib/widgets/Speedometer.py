@@ -49,7 +49,7 @@ class SpeedometerBase:
     def InactiveTickStyle(self) -> dict:
         return {
             "outline": Colors.DARKGRAY,
-            "fill": ""
+            "fill": Colors.DARKGRAY
         }
 
     @property
