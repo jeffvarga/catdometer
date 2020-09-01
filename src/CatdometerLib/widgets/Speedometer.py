@@ -1,9 +1,14 @@
 import math
+from collections import namedtuple
 import tkinter as tk
 import tkinter.font
 
 from ..utils import Colors
 from ..utils.CircularList import CircularList
+
+
+Rect = namedtuple("Rect", ["left", "top", "right", "bottom"])
+Point = namedtuple("Point", ["x", "y"])
 
 
 class SpeedometerBase:
@@ -66,24 +71,30 @@ class DottedSpeedometer(SpeedometerBase):
         SpeedometerBase.__init__(self, canvas, canvasPadding, numTicks=36)
 
     def InitializeTicks(self):
-        rect = (self._canvasPadding,  # Left
-                self._canvasPadding,  # Top
-                int(self._canvas["width"]) - self._canvasPadding,  # Right
-                int(self._canvas["height"]) - self._canvasPadding)  # Bottom
+        rect = Rect(self._canvasPadding,  # Left
+                    self._canvasPadding,  # Top
+                    int(self._canvas["width"]) - self._canvasPadding,  # Right
+                    int(self._canvas["height"]) - self._canvasPadding)  # Bottom
 
         degsPerTick = 360 / self._numTicks
 
-        radius = min((rect[2] - rect[0]) / 2, (rect[3] - rect[1]) / 2)
-        center = (rect[0] + (rect[2] - rect[0]) / 2,
-                  rect[1] + (rect[3] - rect[1]) / 2)
+        rectWidth = rect.right - rect.left
+        rectHeight = rect.bottom - rect.top
+        radius = min(rectWidth / 2, rectHeight / 2)
+        center = Point(rect.left + rectWidth / 2, rect.top + rectHeight / 2)
+
+        # Each dot gets approximately radius*2*sin(degsPerTick/2) pixels of
+        # space.  Then give each dot about 85% of that space, radius is half
+        # that, subtract 1 for the center pixel.
+        dotRadius = radius * math.sin(math.radians(degsPerTick) / 2) * .85 - 1
 
         for i in range(self._numTicks):
-            angle = -(i * degsPerTick)
-            x = int(radius * math.sin(math.pi * 2 * angle / 360))
-            y = int(radius * math.cos(math.pi * 2 * angle / 360))
+            angle = math.radians(-(i * degsPerTick))
+            x = int(radius * math.sin(angle))
+            y = int(radius * math.cos(angle))
             self._tickArray[i] = self._canvas.create_oval(
-                center[0] + x-7, center[1] + y-7,
-                center[0] + x+7, center[1] + y+7,
+                center.x + x-dotRadius, center.y + y-dotRadius,
+                center.x + x+dotRadius, center.y + y+dotRadius,
                 **self.InactiveTickStyle,
                 width=1)
 
@@ -107,10 +118,10 @@ class DashedSpeedometer(SpeedometerBase):
         SpeedometerBase.__init__(self, canvas, canvasPadding, numTicks=24)
 
     def InitializeTicks(self):
-        rect = (self._canvasPadding,  # Left
-                self._canvasPadding,  # Top
-                int(self._canvas["width"]) - self._canvasPadding,  # Right
-                int(self._canvas["height"]) - self._canvasPadding)  # Bottom
+        rect = Rect(self._canvasPadding,  # Left
+                    self._canvasPadding,  # Top
+                    int(self._canvas["width"]) - self._canvasPadding,  # Right
+                    int(self._canvas["height"]) - self._canvasPadding)  # Bottom
 
         degsPerTick = 360 / self._numTicks
         tickPadding = .2 * degsPerTick
@@ -156,7 +167,7 @@ class Speedometer(tk.Frame):
 
         self._speedoHandler = DottedSpeedometer(canvas=self.canvas, canvasPadding=20)
         self._speedoHandler.InitializeTicks()
-        self.canvas.after(1, self._speedoHandler.AdvanceTick, *(1, 1, 5))
+        self.canvas.after(1, self._speedoHandler.AdvanceTick, *(1, 1, 8))
 
         helv36 = tk.font.Font(family="Helvetica", size=72, weight="bold")
         self.liveSpeedLbl = self.canvas.create_text(160, 160, anchor=tk.CENTER, fill=Colors.WHITE, justify=tk.CENTER, font=helv36)
