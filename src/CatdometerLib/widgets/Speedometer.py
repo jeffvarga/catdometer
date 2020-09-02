@@ -1,14 +1,10 @@
 import math
-from collections import namedtuple
 import tkinter as tk
 import tkinter.font
 
 from ..utils import Colors
 from ..utils.CircularList import CircularList
-
-
-Rect = namedtuple("Rect", ["left", "top", "right", "bottom"])
-Point = namedtuple("Point", ["x", "y"])
+from ..utils.Geometry import Rect, Point
 
 
 class SpeedometerBase:
@@ -78,10 +74,8 @@ class DottedSpeedometer(SpeedometerBase):
 
         degsPerTick = 360 / self._numTicks
 
-        rectWidth = rect.right - rect.left
-        rectHeight = rect.bottom - rect.top
-        radius = min(rectWidth / 2, rectHeight / 2)
-        center = Point(rect.left + rectWidth / 2, rect.top + rectHeight / 2)
+        radius = min(rect.width / 2, rect.height / 2)
+        center = Point(rect.left + rect.height / 2, rect.top + rect.height / 2)
 
         # Each dot gets approximately radius*2*sin(degsPerTick/2) pixels of
         # space.  Then give each dot about 85% of that space, radius is half
@@ -170,9 +164,11 @@ class Speedometer(tk.Frame):
         self.canvas.after(1, self._speedoHandler.AdvanceTick, *(1, 1, 8))
 
         helv36 = tk.font.Font(family="Helvetica", size=72, weight="bold")
-        self.liveSpeedLbl = self.canvas.create_text(160, 160, anchor=tk.CENTER, fill=Colors.WHITE, justify=tk.CENTER, font=helv36)
+        self.liveSpeedLbl = self.canvas.create_text(160, 160, anchor=tk.CENTER, fill=Colors.WHITE, justify=tk.CENTER,
+                                                    font=helv36)
         self.canvas.itemconfigure(self.liveSpeedLbl, text="44.2")
 
         helv24 = tk.font.Font(family="Helvetica", size=20)
-        self.liveSpeedUnits = self.canvas.create_text(240, 220, anchor=tk.E, fill="#4d4d4d", justify=tk.RIGHT, font=helv24)
+        self.liveSpeedUnits = self.canvas.create_text(240, 220, anchor=tk.E, fill="#4d4d4d", justify=tk.RIGHT,
+                                                      font=helv24)
         self.canvas.itemconfigure(self.liveSpeedUnits, text="ft/s")

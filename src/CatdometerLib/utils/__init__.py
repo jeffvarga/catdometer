@@ -1,1 +1,1 @@
-__all__ = ["CircularList", "Colors"]
+__all__ = ["CircularList", "Colors", "Geometry"]
