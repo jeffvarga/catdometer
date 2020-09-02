@@ -101,15 +101,15 @@ class DottedSpeedometer(SpeedometerBase):
     @property
     def ActiveTickStyle(self) -> dict:
         return {
-            "outline": "#3498DB",
-            "fill": "#2E86C1"
+            "outline": Colors.CORNFLOWERBLUE,  # "#3498DB",
+            "fill": Colors.DODGERBLUE,  # "#2E86C1"
         }
 
     @property
     def ChaserTickStyle(self) -> dict:
         return {
-            "outline": "#21618C",
-            "fill": "#1B4F72"
+            "outline": Colors.DARKBLUE,  # "#21618C",
+            "fill": Colors.DARKSLATEBLUE,  # "#1B4F72"
         }
 
 
