@@ -7,7 +7,7 @@ from ..utils.CircularList import CircularList
 from ..utils.Geometry import Rect, Point
 
 
-class SpeedometerBase:
+class GaugeBase:
     def __init__(self, canvas: tk.Canvas, canvasPadding: int = 20, numTicks: int = 8):
         self._canvas = canvas
         self._canvasPadding = canvasPadding
@@ -62,9 +62,9 @@ class SpeedometerBase:
         return {}
 
 
-class DottedSpeedometer(SpeedometerBase):
+class DottedGauge(GaugeBase):
     def __init__(self, canvas: tk.Canvas, canvasPadding: int = 20):
-        SpeedometerBase.__init__(self, canvas, canvasPadding, numTicks=36)
+        GaugeBase.__init__(self, canvas, canvasPadding, numTicks=36)
 
     def InitializeTicks(self):
         rect = Rect(self._canvasPadding,  # Left
@@ -107,9 +107,9 @@ class DottedSpeedometer(SpeedometerBase):
         }
 
 
-class DashedSpeedometer(SpeedometerBase):
+class DashedGauge(GaugeBase):
     def __init__(self, canvas: tk.Canvas, canvasPadding: int = 20):
-        SpeedometerBase.__init__(self, canvas, canvasPadding, numTicks=24)
+        GaugeBase.__init__(self, canvas, canvasPadding, numTicks=24)
 
     def InitializeTicks(self):
         rect = Rect(self._canvasPadding,  # Left
@@ -159,9 +159,9 @@ class Speedometer(tk.Frame):
         self.canvas.pack(fill=tk.BOTH)
         self.canvas.configure(bg=parent["bg"], borderwidth=0, highlightthickness=0, relief=tk.FLAT)
 
-        self._speedoHandler = DottedSpeedometer(canvas=self.canvas, canvasPadding=20)
-        self._speedoHandler.InitializeTicks()
-        self.canvas.after(1, self._speedoHandler.AdvanceTick, *(1, 1, 8))
+        self._speedoGauge = DottedGauge(canvas=self.canvas, canvasPadding=20)
+        self._speedoGauge.InitializeTicks()
+        self.canvas.after(1, self._speedoGauge.AdvanceTick, *(1, 1, 8))
 
         helv36 = tk.font.Font(family="Helvetica", size=72, weight="bold")
         self.liveSpeedLbl = self.canvas.create_text(160, 160, anchor=tk.CENTER, fill=Colors.WHITE, justify=tk.CENTER,
