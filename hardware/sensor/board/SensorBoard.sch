@@ -1183,4 +1183,53 @@ Text Label 1800 2150 2    50   ~ 0
 Unfiltered_Data-
 Text Notes 8600 2300 0    50   ~ 0
 Quadrature Decoder
+Text Label 4600 4100 0    50   ~ 0
+CLK+
+Text Label 4600 4500 0    50   ~ 0
+CLK-
+Text Label 4600 3500 0    50   ~ 0
+REF
+Text Label 4550 3300 0    50   ~ 0
+RESET
+Text Label 4550 2800 0    50   ~ 0
+VCCA
+Text Label 8050 4300 1    50   ~ 0
+Phase1
+Text Label 8150 4300 1    50   ~ 0
+Phase2
+$Comp
+L Device:R_US R7
+U 1 1 60496F71
+P 9650 4300
+F 0 "R7" H 9718 4346 50  0000 L CNN
+F 1 "1k" H 9718 4255 50  0000 L CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 9690 4290 50  0001 C CNN
+F 3 "~" H 9650 4300 50  0001 C CNN
+F 4 "ERJ-PA3J102V" H 9650 4300 50  0001 C CNN "Digikey Item"
+	1    9650 4300
+	1    0    0    -1  
+$EndComp
+Connection ~ 9650 4150
+$Comp
+L Device:LED D3
+U 1 1 6049812D
+P 9650 4600
+F 0 "D3" V 9597 4680 50  0000 L CNN
+F 1 "LED" V 9688 4680 50  0000 L CNN
+F 2 "LED_SMD:LED_0603_1608Metric" H 9650 4600 50  0001 C CNN
+F 3 "~" H 9650 4600 50  0001 C CNN
+	1    9650 4600
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR04
+U 1 1 60499374
+P 9650 4750
+F 0 "#PWR04" H 9650 4500 50  0001 C CNN
+F 1 "GND" H 9655 4577 50  0000 C CNN
+F 2 "" H 9650 4750 50  0001 C CNN
+F 3 "" H 9650 4750 50  0001 C CNN
+	1    9650 4750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
