@@ -1222,5 +1222,5 @@ F 3 "~" H 9650 4300 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Text GLabel 9650 4750 3    50   Input ~ 0
-VCCV3
+VCC3V3
 $EndSCHEMATC
