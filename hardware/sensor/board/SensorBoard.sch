@@ -869,17 +869,6 @@ Wire Wire Line
 Connection ~ 6100 5100
 Connection ~ 6200 5100
 $Comp
-L 74xGxx:74LVC2G17 U3
-U 1 1 603296FF
-P 8550 2250
-F 0 "U3" H 8525 2517 50  0000 C CNN
-F 1 "74LVC2G17" H 8525 2426 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-6" H 8550 2250 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 8550 2250 50  0001 C CNN
-	1    8550 2250
-	1    0    0    -1  
-$EndComp
-$Comp
 L 74xGxx:74LVC1G374 U4
 U 1 1 6033112C
 P 9350 2600
@@ -1046,17 +1035,6 @@ Wire Wire Line
 	8550 3100 8550 3400
 Wire Wire Line
 	8100 3000 8200 3000
-$Comp
-L 74xGxx:74LVC2G17 U3
-U 2 1 6032A20D
-P 8550 3000
-F 0 "U3" H 8525 2825 50  0000 C CNN
-F 1 "74LVC2G17" H 8525 2734 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23-6" H 8550 3000 50  0001 C CNN
-F 3 "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf" H 8550 3000 50  0001 C CNN
-	2    8550 3000
-	1    0    0    -1  
-$EndComp
 $Comp
 L Device:R_US R7
 U 1 1 604D01DF
@@ -1338,6 +1316,28 @@ F 1 "GND" H 9855 5777 50  0000 C CNN
 F 2 "" H 9850 5950 50  0001 C CNN
 F 3 "" H 9850 5950 50  0001 C CNN
 	1    9850 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xGxx:74LVC2G14 U3
+U 1 1 606A896C
+P 8550 2250
+F 0 "U3" H 8525 2517 50  0000 C CNN
+F 1 "74LVC2G14" H 8525 2426 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-6" H 8550 2250 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74lvc2g14.pdf" H 8550 2250 50  0001 C CNN
+	1    8550 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74xGxx:74LVC2G14 U3
+U 2 1 606A97AE
+P 8550 3000
+F 0 "U3" H 8525 3267 50  0000 C CNN
+F 1 "74LVC2G14" H 8525 3176 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23-6" H 8550 3000 50  0001 C CNN
+F 3 "https://www.ti.com/lit/ds/symlink/sn74lvc2g14.pdf" H 8550 3000 50  0001 C CNN
+	2    8550 3000
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
